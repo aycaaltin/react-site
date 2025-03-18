@@ -12,6 +12,7 @@ const initialState = {
     drawer : false,
     totalAmount: 0
 
+
 }
 const writeFromBasketStorage = (basket) => {
     localStorage.setItem("basket", JSON.stringify(basket))
@@ -43,13 +44,31 @@ export const basketSlice = createSlice({
           state.products && state.products.map((product)=> {
             state.totalAmount += product.price * product.count;
           })
+        },
+        removeProduct: (state, action) => {
+          const productId = action.payload;
+          const findProduct = state.products.find(product => product.id === productId);
+        
+          if (findProduct.count > 1) {
+            // Eğer ürünün count'u 1'den büyükse, sadece count'u azaltıyoruz
+            findProduct.count -= 1;
+          } else {
+            // Eğer count 1 ise, ürünü tamamen sepetten çıkarıyoruz
+            state.products = state.products.filter(product => product.id !== productId);
+          }
+        
+          // Sepeti güncellediğimizde, localStorage'ı da güncellemeyi unutmayalım
+          writeFromBasketStorage(state.products);
+        
+          // Toplam tutarı yeniden hesaplıyoruz
+          state.totalAmount = state.products.reduce(
+            (total, product) => total + product.price * product.count, 0
+          );
         }
+      }
+ })
+  
 
-
-
-    }
-})
-
-export const { addToBasket, setDrawer, calculateBasket } = basketSlice.actions
+export const { addToBasket, setDrawer, calculateBasket, removeProduct } = basketSlice.actions
 
 export default basketSlice.reducer

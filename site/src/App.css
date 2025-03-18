@@ -8,6 +8,33 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+ 
+}
+
+.product-list {
+  margin-left: 250px; /* Kategoriler kısmının yanına denk gelmesi için */
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100vh - 100px); /* Header ve Drawer dışında kalan kısmı kullanıyoruz */
+
+}
+
+.product-list .product {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.category-list {
+  width: 250px;
+  background-color: #f1f1f1;
+  padding: 20px;
+  height: calc(100vh - 100px); /* Header ve Drawer'ın dışında kalan yüksekliği alır */
+  overflow-y: auto; /* Yükseklik aşarsa kaydırılabilir */
+  position: fixed; /* Kategoriler sabit kalacak */
+  top: 100px; /* Header'ın altına yerleştiriyoruz */
 }
 
 .flex-column {

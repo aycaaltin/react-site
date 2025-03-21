@@ -50,24 +50,21 @@ export const basketSlice = createSlice({
           const findProduct = state.products.find(product => product.id === productId);
         
           if (findProduct.count > 1) {
-            // Eğer ürünün count'u 1'den büyükse, sadece count'u azaltıyoruz
+            // Ürünün countu 1 den büyükse 1 azaltıyoruz.
             findProduct.count -= 1;
           } else {
-            // Eğer count 1 ise, ürünü tamamen sepetten çıkarıyoruz
+            // Count 1 ise , ürünü tamamen sepetten çıkarıyoruz.
             state.products = state.products.filter(product => product.id !== productId);
           }
-        
-          // Sepeti güncellediğimizde, localStorage'ı da güncellemeyi unutmayalım
+          // Sepet güncellendiğinde localStorage'ı da güncelle
           writeFromBasketStorage(state.products);
-        
-          // Toplam tutarı yeniden hesaplıyoruz
+         // Toplam tutarı yeniden hesapla
           state.totalAmount = state.products.reduce(
             (total, product) => total + product.price * product.count, 0
           );
         }
       }
- })
-  
+    })
 
 export const { addToBasket, setDrawer, calculateBasket, removeProduct } = basketSlice.actions
 

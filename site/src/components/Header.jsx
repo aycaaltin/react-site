@@ -10,15 +10,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDrawer } from '../redux/slices/basketSlice';
 
 
-function Header() {
+function Header({product}) {
 
    const [theme , setTheme] = useState(false);
+
+   const [searchTerm, setSearchTerm] = useState('');
 
    const navigate = useNavigate();
 
    const dispatch = useDispatch();
 
     const { products } = useSelector((store) => store.basket);
+    
+
+    const { title } = product || {} ;
   
 
    const changeTheme = () => {
@@ -33,6 +38,13 @@ function Header() {
     setTheme(!theme);
    }
 
+   const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+   };
+
+   const filteredProducts = products.filter((product) => product.title.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()));
+  
+  
 
   return (
     <div style={{display: 'flex' , flexDirection:'center', justifyContent: 'space-between'}}>
@@ -40,9 +52,13 @@ function Header() {
             <img className='logo' src='./src/images/logo.png'/>
             <p className='logo-text'>AYÇA BUTİK</p>
         </div>
+        
 
         <div className='flex-row'>
-            <input className='search-input' type='text' placeholder='Bir şeyler ara'/>
+            <input className='search-input' type='text' placeholder='Bir şeyler ara'
+            value={searchTerm}
+            onChange={handleSearchChange}
+            />
             <div>
               { theme ? <FaMoon className='icon' onClick={changeTheme}/> : <CiLight className='icon'onClick={changeTheme}/>}
               <Badge onClick={()=> dispatch(setDrawer())
@@ -51,8 +67,22 @@ function Header() {
            
             </div>
         </div>
+
+        {searchTerm && (
+          <div>
+            <ul>
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product,index) =>(
+                  <li key={index}>{product.title}</li>
+                ))
+              ) : (
+                <p>Sonuç Bulunamadı.</p>
+              )}
+            </ul>
+            </div>
+        )}
     </div>
-  )
+  );
 }
 
 export default Header

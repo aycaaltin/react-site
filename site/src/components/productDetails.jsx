@@ -28,11 +28,11 @@ function productDetails() {
 
   const addBasket = () => {
     const payload = {
-      id: selectedProduct.id, 
-      price: selectedProduct.price,
-      image: selectedProduct.image,
-      title: selectedProduct.title,
-      description: selectedProduct.description,
+      id:id, 
+      price:price,
+      image:image,
+      title:title,
+      description:description,
       count
     };
     dispatch(addToBasket(payload));
@@ -62,14 +62,14 @@ function productDetails() {
     
     <div style={{marginTop: '30px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
       <div style={{marginRight: '40px'}}>
-         <img src={selectedProduct.image} width={300} height={500} alt={selectedProduct.title}/>
+         <img src={image} width={300} height={500} alt={title}/>
                  
       </div>
 
       <div>
-        <h1 style={{fontFamily: 'arial'}}>{selectedProduct.title}</h1>
-        <p style={{fontFamily: 'arial', fontSize:'20px'}}>{selectedProduct.description}</p>
-        <h1 style={{fontSize: '50px', fontFamily: 'arial', fontWeight: 'bold', color: 'rgb(185, 76, 76)'}}>{selectedProduct.price}₺</h1>
+        <h1 style={{fontFamily: 'arial'}}>{title}</h1>
+        <p style={{fontFamily: 'arial', fontSize:'20px'}}>{description}</p>
+        <h1 style={{fontSize: '50px', fontFamily: 'arial', fontWeight: 'bold', color: 'rgb(185, 76, 76)'}}>{price}₺</h1>
         <div style={{ display:'flex',alignItems:'center'}}>
           <CiCirclePlus onClick={increment} style={{fontSize: '40px',marginRight: '15px'}}/> <span style={{fontSize:'35px'}}>{count}</span> <CiCircleMinus onClick={decrement} style={{fontSize: '40px' , marginLeft:'15px'}}/>
           

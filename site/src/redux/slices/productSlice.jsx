@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
     products : [],
-    selectedProduct : [],
+    selectedProduct : null,
     categories: [],
     selectedCategory: null,
     loading : false
@@ -21,9 +21,6 @@ export const productSlice = createSlice({
     reducers : {
       setSelectedProduct: (state, action) => {
         state.selectedProduct = action.payload;
-      },
-      setCategories: (state, action) => {
-        state.categories = action.payload;
       },
       setSelectedCategory: (state,action) => {
         state.selectedCategory = action.payload;
